@@ -5,6 +5,33 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "google-adk[litellm]>=1.23.0",
-    "litellm>=1.81.5",
+
 ]
+
+# 只保留工作区配置
+[tool.uv.workspace]
+members = [
+    "utils",
+    "agent_tool",
+    "chuck_norris_agent"
+]
+
+[tool.uv.sources]
+utils = { workspace = true }
+agent-tool = { workspace = true }
+chuck-norris-agent = { workspace = true }
+
+# 可选：添加开发依赖
+[tool.uv]
+managed = true
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "ruff>=0.9.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["google_python_adk_samples"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
