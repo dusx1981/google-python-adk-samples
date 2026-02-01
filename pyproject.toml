@@ -14,7 +14,8 @@ members = [
     "api",
     "utils",
     "agent_tool",
-    "chuck_norris_agent"
+    "chuck_norris_agent",
+    "blog_pipeline"
 ]
 
 [tool.uv.sources]
@@ -22,6 +23,7 @@ api = { workspace = true }
 utils = { workspace = true }
 agent-tool = { workspace = true }
 chuck-norris-agent = { workspace = true }
+blog-pipeline = { workspace = true }
 
 # 可选：添加开发依赖
 [tool.uv]

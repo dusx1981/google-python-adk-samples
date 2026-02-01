@@ -1,17 +1,15 @@
 [project]
-name = "api"
+name = "blog-pipeline"
 version = "0.1.0"
 description = "Agent tool using Google ADK"
 requires-python = ">=3.12"
 dependencies = [
     "google-adk>=1.23.0",
     "litellm>=1.81.5",
-    "chuck_norris_agent",
-    "blog_pipeline"
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/api"]
+packages = ["src/blog_pipeline"]
 
 [build-system]
 requires = ["hatchling"]

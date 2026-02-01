@@ -31,10 +31,11 @@ export interface SessionInfo {
   lastMessageAt: string;
 }
 
-export type WebSocketMessageType = 
+export type WebSocketMessageType =
   | 'user_message'
   | 'assistant_response'
   | 'partial_response'
+  | 'token_stream'
   | 'tool_call_start'
   | 'tool_call_result'
   | 'response_complete'

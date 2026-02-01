@@ -17,6 +17,7 @@ from google.genai import types
 
 # from agent_tool import function_tool_agent
 from chuck_norris_agent import rest_api_agent
+from blog_pipeline import blog_creation_pipeline
 
 # ============ Agent Configuration ============
 
@@ -113,7 +114,7 @@ class SessionManager:
             # )
             
             # Create runner
-            runner = InMemoryRunner(agent=rest_api_agent, app_name='web_chat_app')
+            runner = InMemoryRunner(agent=blog_creation_pipeline, app_name='web_chat_app')
             runner.auto_create_session = True
             
             # Create session for this runner
@@ -273,16 +274,19 @@ async def websocket_chat(websocket: WebSocket, session_id: str):
                                     })
                                     break
                         
-                        # Regular text response
+                        # Regular text response - 逐字流式输出
                         elif part.text:
                             response_text += part.text
                             
-                            # Stream partial response
-                            await websocket.send_json({
-                                "type": "partial_response",
-                                "content": part.text,
-                                "timestamp": datetime.now().isoformat()
-                            })
+                            # 将文本拆分为单个字符/词元逐字流式发送
+                            for char in part.text:
+                                await websocket.send_json({
+                                    "type": "token_stream",
+                                    "content": char,
+                                    "timestamp": datetime.now().isoformat()
+                                })
+                                # 可选：添加微小延迟模拟真实打字效果（约20-50ms）
+                                await asyncio.sleep(0.02)
             
             # Send final response
             if response_text:

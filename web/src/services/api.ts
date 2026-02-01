@@ -106,6 +106,17 @@ class ChatService {
         // Accumulate partial response (handled by streaming message)
         break;
 
+      case 'token_stream': {
+        // 逐字流式输出 - 将每个字符追加到正在流式传输的消息
+        const streamingMessage = store.messages.find(m => m.isStreaming && m.role === 'assistant');
+        if (streamingMessage && message.content) {
+          store.updateMessage(streamingMessage.id, {
+            content: streamingMessage.content + message.content
+          });
+        }
+        break;
+      }
+
       case 'assistant_response': {
         // Find streaming message and update it
         const streamingMessage = store.messages.find(m => m.isStreaming);

@@ -1,4 +1,4 @@
-# import asyncio
+import asyncio
 # import os
 from google.adk.agents import Agent
 from google.adk.runners import InMemoryRunner
@@ -28,4 +28,10 @@ async def run_agent_in_memory(agent: Agent):
         new_message=new_message
     ):
         if event.content and event.content.parts:
-            print(event.content.parts[0].text)
+            text = event.content.parts[0].text
+            # 逐字流式输出
+            import sys
+            for char in text:
+                print(char, end='', flush=True)
+                await asyncio.sleep(0.02)  # 20ms 延迟模拟打字效果
+            print()  # 换行
