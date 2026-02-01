@@ -20,23 +20,22 @@ def calculate_square(number: int) -> int:
     """Calculate the square of a number."""
     return number ** 2
 
+# Create LiteLLM model - format: "openai/model-name" - provider: https://docs.litellm.ai/docs/providers
+qwen_model = LiteLlm(model='dashscope/qwen2.5-72b-instruct')  # or 'openai/gpt-4o'
+
+# Create agent with OpenAI model
+function_tool_agent = Agent(
+    model=qwen_model,  # Use LiteLlm instance, not string
+    name='qwen_agent',
+    description='Agent powered by OpenAI qwen2.5-72b-instruct',
+    instruction='You are a helpful assistant.',
+    tools=[FunctionTool(calculate_square)]
+)
 
 async def main():
     """Agent using OpenAI qwen2.5-72b-instruct."""
 
-    # Create LiteLLM model - format: "openai/model-name" - provider: https://docs.litellm.ai/docs/providers
-    qwen_model = LiteLlm(model='dashscope/qwen2.5-72b-instruct')  # or 'openai/gpt-4o'
-
-    # Create agent with OpenAI model
-    agent = Agent(
-        model=qwen_model,  # Use LiteLlm instance, not string
-        name='qwen_agent',
-        description='Agent powered by OpenAI qwen2.5-72b-instruct',
-        instruction='You are a helpful assistant.',
-        tools=[FunctionTool(calculate_square)]
-    )
-
-    await run_agent_in_memory(agent)
+    await run_agent_in_memory(function_tool_agent)
 
 
 if __name__ == '__main__':

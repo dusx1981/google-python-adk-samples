@@ -5,6 +5,10 @@ build/
 dist/
 wheels/
 *.egg-info
+package-lock.json
 
 # Virtual environments
 .venv
+
+# 前端
+node_modules

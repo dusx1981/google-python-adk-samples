@@ -11,12 +11,14 @@ dependencies = [
 # 只保留工作区配置
 [tool.uv.workspace]
 members = [
+    "api",
     "utils",
     "agent_tool",
     "chuck_norris_agent"
 ]
 
 [tool.uv.sources]
+api = { workspace = true }
 utils = { workspace = true }
 agent-tool = { workspace = true }
 chuck-norris-agent = { workspace = true }

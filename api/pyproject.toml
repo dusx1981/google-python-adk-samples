@@ -1,0 +1,17 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "Agent tool using Google ADK"
+requires-python = ">=3.12"
+dependencies = [
+    "google-adk>=1.23.0",
+    "litellm>=1.81.5",
+    "chuck_norris_agent",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/api"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

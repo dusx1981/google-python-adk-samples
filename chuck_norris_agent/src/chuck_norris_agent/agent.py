@@ -153,7 +153,7 @@ chuck_norris_toolset = OpenAPIToolset(spec_dict=CHUCK_NORRIS_SPEC)
 # ============================================================================
 qwen_model = LiteLlm(model='dashscope/qwen2.5-72b-instruct') 
 
-root_agent = Agent(
+rest_api_agent = Agent(
     name="chuck_norris_agent",
     model=qwen_model,
 
@@ -195,7 +195,7 @@ root_agent = Agent(
 async def main():
     """Agent using OpenAI qwen2.5-72b-instruct."""
 
-    await run_agent_in_memory(root_agent)
+    await run_agent_in_memory(rest_api_agent)
 
 
 if __name__ == '__main__':
